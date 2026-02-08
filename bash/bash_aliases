@@ -1,0 +1,22 @@
+# navigation
+alias goto='cd ~/code'
+alias gotogb='cd ~/code/gameboy_emulator'
+
+# general aliases
+alias c='cd ../'
+alias l='ls'
+alias ll='ls -l'
+alias la='ls -a'
+alias lila='ls -ila'
+alias h='history | grep -i'
+alias p='ps aux | grep'
+alias grep='grep --color=auto'
+alias please='sudo !!'
+
+# git aliases
+alias gs='git status'
+alias gb='git branch'
+alias gd='git diff'
+alias ga='git add'
+alias gc='git commit'
+alias gp='git pull'
