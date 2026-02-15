@@ -10,7 +10,9 @@ set mouse=a
 set nobackup
 set nocompatible
 set noswapfile
+set nowrap
 set number
+set relativenumber
 set shiftwidth=4
 set showmatch
 set showmatch
@@ -19,7 +21,6 @@ set showtabline=2
 set splitbelow
 set splitright
 set tabstop=4
-set wrap
 syntax on
 
 
@@ -37,3 +38,10 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 nnoremap <S-h> gT
 nnoremap <S-l> gt
+
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
+
+cnoreabbrev tn tabnew
