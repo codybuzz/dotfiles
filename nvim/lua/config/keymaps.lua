@@ -17,3 +17,6 @@ vim.keymap.set('t', "<C-h>", [[<cmd>wincmd h<CR>]])
 vim.keymap.set("t", "<C-j>", [[<cmd>wincmd j<CR>]])
 vim.keymap.set("t", "<C-k>", [[<cmd>wincmd k<CR>]])
 vim.keymap.set("t", "<C-l>", [[<cmd>wincmd l<CR>]])
+
+-- oil
+vim.keymap.set("n", "<leader>o", function() require("oil").toggle_float(nil, { preview = { vertical = true } }) end, { desc = "Toggle Oil Float" })
