@@ -26,6 +26,7 @@ syntax on
 
 " KEYBINDS ------------------------------------------------
 let mapleader=','
+nnoremap <leader>e :e<CR>
 nnoremap <leader>n :noh<CR>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>q :q<CR>
@@ -38,6 +39,8 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 nnoremap <S-h> gT
 nnoremap <S-l> gt
+nnoremap <C-u> <C-u>zz
+nnoremap <C-d> <C-d>zz
 
 inoremap <C-h> <Left>
 inoremap <C-j> <Down>
