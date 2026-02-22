@@ -7,6 +7,8 @@ vim.keymap.set("n", "<Leader>ff", ":Telescope find_files<CR>", { desc = "Find Fi
 vim.keymap.set("n", "<Leader>fd", ":Telescope live_grep<CR>", { desc = "Live Grep" })
 vim.keymap.set("n", "<Leader>fw", ":Telescope grep_string<CR>", { desc = "Grep String" })
 vim.keymap.set("n", "<Leader>fg", ":Telescope git_files<CR>", { desc = "Find Git Files" })
+vim.keymap.set("n", "<Leader>fh", ":Telescope help_tags<CR>", { desc = "Search Help Tags" })
+vim.keymap.set("n", "<Leader>fs", ":Telescope lsp_dynamic_workspace_symbols<CR>", { desc = "Search LSP Symbols" })
 
 -- toggleterm
 vim.keymap.set("n", "<Leader>tt", "<cmd>ToggleTerm <CR>", { desc = "Toggle Terminal" })
