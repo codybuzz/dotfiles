@@ -1,22 +1,30 @@
+# general
+alias c="cd ../"
+alias cls="clear"
+alias grep='grep --color=auto'
+alias h='history | grep -i'
+alias ip3="ipython3"
+alias l="ls"
+alias la="ls -a"
+alias lila="ls -ila"
+alias ll="ls -l"
+alias lv="ls -1"
+alias p3="python3"
+alias p='ps aux | grep'
+alias please='sudo $(history -p !!)'
+
+# git
+alias g="git"
+alias ga="git add"
+alias gaa="git add -A"
+alias gb="git branch"
+alias gs="git status"
+alias gsw="git switch"
+
 # navigation
 alias goto='cd ~/code'
 alias gotogb='cd ~/code/gameboy_emulator'
+alias gotodo='cd ~/code/dotfiles'
 
-# general aliases
-alias c='cd ../'
-alias l='ls'
-alias ll='ls -l'
-alias la='ls -a'
-alias lila='ls -ila'
-alias h='history | grep -i'
-alias p='ps aux | grep'
-alias grep='grep --color=auto'
-alias please='sudo !!'
-
-# git aliases
-alias gs='git status'
-alias gb='git branch'
-alias gd='git diff'
-alias ga='git add'
-alias gc='git commit'
-alias gp='git pull'
+# vim terminal
+set -o vi

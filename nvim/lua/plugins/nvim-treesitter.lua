@@ -11,7 +11,7 @@ return {
         "python",
         "yaml",
     },
-    auto_install = true,
+    auto_install = false,
     highlight = {
       enable = true,
     },

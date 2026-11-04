@@ -5,6 +5,7 @@ vim.keymap.set("n", "<Leader>l", "<cmd>Lazy<CR>", { desc = "Lazy Menu" })
 -- telescope
 vim.keymap.set("n", "<Leader>ff", ":Telescope find_files<CR>", { desc = "Find Files" })
 vim.keymap.set("n", "<Leader>fd", ":Telescope live_grep<CR>", { desc = "Live Grep" })
+vim.keymap.set("n", "<Leader>fb", ":Telescope current_buffer_fuzzy_find<CR>", { desc = "Fuzzy Find Current Buffer" })
 vim.keymap.set("n", "<Leader>fw", ":Telescope grep_string<CR>", { desc = "Grep String" })
 vim.keymap.set("n", "<Leader>fg", ":Telescope git_files<CR>", { desc = "Find Git Files" })
 vim.keymap.set("n", "<Leader>fh", ":Telescope help_tags<CR>", { desc = "Search Help Tags" })

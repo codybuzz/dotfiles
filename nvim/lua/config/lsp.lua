@@ -1,8 +1,9 @@
 
 -- configure as needed
 lsps = {
-    "ruff",
     "clangd",
+    "ruff",
+    "pyright",
 }
 
 function setup_lsps()
@@ -10,6 +11,15 @@ function setup_lsps()
     lsps_enabled = false
     vim.lsp.enable(lsps, false)
     set_diagnostics(true)
+
+    -- use the same position encoding for all
+    vim.lsp.config('*', {
+        capabilities = {
+            general = {
+                positionEncodings = { "utf-16" }
+            },
+        },
+    })
 
     -- toggle lsps
     vim.keymap.set('n', '<leader>dd', function()
@@ -46,6 +56,9 @@ function setup_lsps()
 
     -- formatting
     vim.keymap.set({'n','v'}, '<leader>cf', '<cmd>lua vim.lsp.buf.format()<CR>', { noremap = true, silent = true })
+
+    -- code action
+    vim.keymap.set('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action({ apply = true })<CR>', { noremap = true, silent = true })
 
     -- completion
     vim.o.completeopt = "menuone,noinsert"
