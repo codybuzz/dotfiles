@@ -1,5 +1,4 @@
 
--- configure as needed
 lsps = {
     "clangd",
     "ruff",
@@ -7,9 +6,8 @@ lsps = {
 }
 
 function setup_lsps()
-    -- defaults
-    lsps_enabled = false
-    vim.lsp.enable(lsps, false)
+    lsps_enabled = true
+    vim.lsp.enable(lsps, true)
     set_diagnostics(true)
 
     -- use the same position encoding for all
@@ -37,40 +35,75 @@ function setup_lsps()
         set_diagnostics(new_val)
     end, { desc = 'Toggle diagnostics' })
 
-    -- navigation keybinds
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = 'Hover Documentation' })
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'Go to Definition' })
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, { desc = 'Go to References' })
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { desc = 'Go to Implementation' })
-    vim.keymap.set('n', 'gR', vim.lsp.buf.rename, { desc = 'Rename Symbol' })
+    -- diagnostic navigation (neovim defaults, set explicitly for reference)
+    vim.keymap.set('n', ']d', function()
+        vim.diagnostic.jump({ count = vim.v.count1 })
+    end, { desc = 'Next Diagnostic' })
+    vim.keymap.set('n', '[d', function()
+        vim.diagnostic.jump({ count = -vim.v.count1 })
+    end, { desc = 'Previous Diagnostic' })
+    vim.keymap.set('n', ']D', function()
+        vim.diagnostic.jump({ count = math.huge, wrap = false })
+    end, { desc = 'Last Diagnostic' })
+    vim.keymap.set('n', '[D', function()
+        vim.diagnostic.jump({ count = -math.huge, wrap = false })
+    end, { desc = 'First Diagnostic' })
+    vim.keymap.set('n', '<C-w>d', vim.diagnostic.open_float, { desc = 'Show Diagnostic' })
 
-    vim.keymap.set('n', '<leader>gd', function()
-        require('telescope.builtin').lsp_definitions({ jump_type = 'vsplit' })
-    end, { noremap=true, silent=true, desc="Go to Definition" })
-    vim.keymap.set('n', '<leader>gr', function()
-        require('telescope.builtin').lsp_references({ jump_type='vsplit' })
-    end, { noremap=true, silent=true, desc="Go to References" })
-    vim.keymap.set('n', '<leader>gi', function()
-        require('telescope.builtin').lsp_implementations({ jump_type='vsplit' })
-    end, { noremap=true, silent=true, desc="Go to Implementation" })
-
-    -- formatting
-    vim.keymap.set({'n','v'}, '<leader>cf', '<cmd>lua vim.lsp.buf.format()<CR>', { noremap = true, silent = true })
-
-    -- code action
-    vim.keymap.set('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action({ apply = true })<CR>', { noremap = true, silent = true })
+    -- buffer-local keybinds, only set where an lsp is attached
+    vim.api.nvim_create_autocmd('LspAttach', {
+        group = vim.api.nvim_create_augroup('lsp_keymaps', { clear = true }),
+        callback = function(args)
+            set_lsp_keymaps(args.buf)
+        end,
+    })
 
     -- completion
     vim.o.completeopt = "menuone,noinsert"
-    vim.keymap.set('i', '<Tab>', function()
-      if vim.fn.pumvisible() ~= 0 then
-        -- Select the item in the completion menu
-        return '<C-y>'
-      else
-        -- Trigger omnicompletion
-        return '<C-x><C-o>'
-      end
-    end, { expr = true, silent = true, desc = 'omnicompletion' })
+    -- accept a completion with the built-in <C-y>
+    vim.keymap.set('i', '<C-Space>', '<C-x><C-o>', { silent = true, desc = 'omnicompletion' })
+end
+
+function set_lsp_keymaps(bufnr)
+    local function map(mode, lhs, rhs, desc)
+        vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, silent = true, desc = desc })
+    end
+
+    -- navigation keybinds
+    map('n', 'K', vim.lsp.buf.hover, 'Hover Documentation')
+    map('n', 'grd', vim.lsp.buf.definition, 'Go to Definition')
+    map('n', 'grD', vim.lsp.buf.declaration, 'Go to Declaration')
+
+    -- neovim defaults, set explicitly for reference
+    map('n', 'grr', vim.lsp.buf.references, 'Go to References')
+    map('n', 'gri', vim.lsp.buf.implementation, 'Go to Implementation')
+    map('n', 'grt', vim.lsp.buf.type_definition, 'Go to Type Definition')
+    map('n', 'grn', vim.lsp.buf.rename, 'Rename Symbol')
+    map({'n','x'}, 'gra', vim.lsp.buf.code_action, 'Code Action')
+    map('n', 'gO', vim.lsp.buf.document_symbol, 'Document Symbols')
+    map({'i','s'}, '<C-s>', vim.lsp.buf.signature_help, 'Signature Help')
+
+    -- telescope equivalents, opened in a vertical split
+    map('n', '<leader>grd', function()
+        require('telescope.builtin').lsp_definitions({ jump_type = 'vsplit' })
+    end, 'Go to Definition')
+    map('n', '<leader>grr', function()
+        require('telescope.builtin').lsp_references({ jump_type = 'vsplit' })
+    end, 'Go to References')
+    map('n', '<leader>gri', function()
+        require('telescope.builtin').lsp_implementations({ jump_type = 'vsplit' })
+    end, 'Go to Implementation')
+    map('n', '<leader>grt', function()
+        require('telescope.builtin').lsp_type_definitions({ jump_type = 'vsplit' })
+    end, 'Go to Type Definition')
+
+    -- formatting
+    map({'n','v'}, '<leader>cf', vim.lsp.buf.format, 'Format')
+
+    -- code action
+    map('n', '<leader>ca', function()
+        vim.lsp.buf.code_action({ apply = true })
+    end, 'Code Action (auto-apply)')
 end
 
 function set_diagnostics(enabled)
