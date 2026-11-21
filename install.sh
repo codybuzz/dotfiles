@@ -4,13 +4,29 @@ set -e
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Define a map of repo config to install location
+# Detect distro
+. /etc/os-release
+
+# common install locations
 declare -A INSTALL_LOCATIONS=(
     ["vim/.vimrc"]="${HOME}/.vimrc"
     ["tmux/.tmux.conf"]="${HOME}/.tmux.conf"
     ["nvim"]="${HOME}/.config/nvim"
-    ["bash/bash_aliases"]="${HOME}/.bashrc.d/bash_aliases"
 )
+
+# distro-specific install locations
+case "$ID" in
+    fedora)
+        INSTALL_LOCATIONS["bash/bash_settings"]="${HOME}/.bashrc.d/bash_settings"
+        ;;
+    ubuntu|debian)
+        INSTALL_LOCATIONS["bash/bash_settings"]="${HOME}/.bash_aliases"
+        ;;
+    *)
+        echo "Unsupported distro: $ID" >&2
+        exit 1
+        ;;
+esac
 
 for src_path in "${!INSTALL_LOCATIONS[@]}"; do
     src_path_full="$DOTFILES_DIR/$src_path"
