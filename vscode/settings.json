@@ -1,0 +1,195 @@
+{
+    // GENERAL EDITOR SETTINGS (mirrors vim/.vimrc) ---------------------------
+    "editor.lineNumbers": "relative",
+    "editor.cursorSurroundingLines": 5,         // scrolloff=5
+    "editor.rulers": [100],                     // colorcolumn=101
+    "editor.renderLineHighlight": "line",       // cursorline
+    "editor.wordWrap": "off",                   // nowrap
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.autoIndent": "keep",
+    "editor.minimap.enabled": false,
+    "editor.overviewRulerBorder": false,
+    "editor.hideCursorInOverviewRuler": true,
+    "editor.scrollbar.vertical": "hidden",
+    "editor.scrollbar.horizontal": "hidden",
+    "editor.stickyScroll.enabled": false,
+    "editor.inlayHints.enabled": "off",
+    "editor.lightbulb.enabled": "off",
+    "editor.codeLens": false,
+    "search.seedWithNearestWord": true,
+    "workbench.activityBar.location": "hidden",
+    "workbench.secondarySideBar.defaultVisibility": "hidden",
+    "workbench.editor.showTabs": "single",
+    // one editor per split, so :q closes the split like a vim window
+    "workbench.editor.limit.enabled": true,
+    "workbench.editor.limit.value": 1,
+    "workbench.editor.limit.perEditorGroup": true,
+    "workbench.statusBar.visible": true,        // vim shows the : command line here
+    "workbench.layoutControl.enabled": false,
+    "workbench.tips.enabled": false,
+    "workbench.startupEditor": "none",
+    "workbench.welcomePage.walkthroughs.openOnInstall": false,
+    "workbench.enableExperiments": false,
+    "breadcrumbs.enabled": false,
+    "window.commandCenter": false,
+    "window.closeWhenEmpty": true,               // only applies to windows without a folder open
+    "window.menuBarVisibility": "toggle",       // press alt to show
+    "extensions.ignoreRecommendations": true,
+    "update.showReleaseNotes": false,
+    "telemetry.telemetryLevel": "off",
+    // "chat.disableAIFeatures": true,          // uncomment if work doesn't need copilot
+
+    // TERMINAL ---------------------------------------------------------------
+    // let window navigation keybinds through instead of sending them to the shell
+    "terminal.integrated.commandsToSkipShell": [
+        "workbench.action.navigateLeft",
+        "workbench.action.navigateRight",
+        "workbench.action.navigateUp",
+        "workbench.action.navigateDown"
+    ],
+
+    // LSP --------------------------------------------------------------------
+    // clangd replaces the microsoft c/c++ intellisense
+    "C_Cpp.intelliSenseEngine": "disabled",
+
+    // OIL ------------------------------------------------------------------
+    "oil-code.columns": ["permissions", "size", "icon"],
+    "oil-code.previewByDefault": true,          // like toggle_float({ preview = { vertical = true } })
+
+    // VIM --------------------------------------------------------------------
+    // basic remaps are shared with vim/nvim via ~/.vimrc, VS Code specific ones live below
+    "vim.vimrc.enable": true,
+    "vim.vimrc.path": "~/.vimrc",
+    "vim.leader": ",",
+    "vim.hlsearch": true,
+    "vim.incsearch": true,
+    "vim.highlightedyank.enable": true,
+    "vim.surround": true,                       // vim-surround
+    "vim.useCtrlKeys": true,
+    "vim.handleKeys": {
+        "<C-p>": false,                         // keep VS Code quick open
+        "<C-b>": false                          // keep VS Code toggle sidebar
+    },
+
+    "vim.normalModeKeyBindingsNonRecursive": [
+        // window navigation - navigate* also moves between editor, sidebar and panel
+        { "before": ["<C-h>"], "commands": ["workbench.action.navigateLeft"] },
+        { "before": ["<C-j>"], "commands": ["workbench.action.navigateDown"] },
+        { "before": ["<C-k>"], "commands": ["workbench.action.navigateUp"] },
+        { "before": ["<C-l>"], "commands": ["workbench.action.navigateRight"] },
+        { "before": ["<C-Up>"], "commands": ["editor.action.moveLinesUpAction"] },
+        { "before": ["<C-Down>"], "commands": ["editor.action.moveLinesDownAction"] },
+
+        // telescope - periscope for files/grep, native quick open for the rest
+        { "before": ["<leader>", "f", "f"], "commands": ["periscope.searchFiles"] },
+        { "before": ["<leader>", "f", "d"], "commands": ["periscope.search"] },
+        { "before": ["<leader>", "f", "b"], "commands": ["periscope.searchCurrentFile"] },
+        { "before": ["<leader>", "f", "w"], "commands": ["editor.action.addSelectionToNextFindMatch", "periscope.search"] },
+        { "before": ["<leader>", "f", "s"], "commands": ["workbench.action.showAllSymbols"] },
+        { "before": ["<leader>", "f", "h"], "commands": ["workbench.action.showCommands"] },
+        { "before": ["<leader>", "f", "r"], "commands": ["periscope.resumeSearch"] },
+
+        // toggleterm
+        { "before": ["<leader>", "t", "t"], "commands": ["workbench.action.terminal.toggleTerminal"] },
+        { "before": ["<leader>", "t", "v"], "commands": ["workbench.action.createTerminalEditorSide"] },
+
+        // oil / lazy / markview
+        { "before": ["<leader>", "o"], "commands": ["oil-code.open"] },
+        { "before": ["<leader>", "e"], "commands": ["workbench.files.action.showActiveFileInExplorer"] },
+
+        // flash
+        { "before": ["s"], "commands": ["flash-vscode.start"] },
+        { "before": ["S"], "commands": ["flash-vscode.startSelection"] },
+        { "before": ["<leader>", "l"], "commands": ["workbench.view.extensions"] },
+        { "before": ["<leader>", "m", "p"], "commands": ["markdown.showPreviewToSide"] },
+
+        // diagnostics
+        { "before": ["]", "d"], "commands": ["editor.action.marker.next"] },
+        { "before": ["[", "d"], "commands": ["editor.action.marker.prev"] },
+        { "before": ["<C-w>", "d"], "commands": ["editor.action.showHover"] },
+        { "before": ["<leader>", "f", "D"], "commands": ["workbench.actions.view.problems"] },
+
+        // lsp navigation
+        { "before": ["K"], "commands": ["editor.action.showHover"] },
+        { "before": ["g", "r", "d"], "commands": ["editor.action.revealDefinition"] },
+        { "before": ["g", "r", "D"], "commands": ["editor.action.revealDeclaration"] },
+        { "before": ["g", "r", "r"], "commands": ["editor.action.goToReferences"] },
+        { "before": ["g", "r", "i"], "commands": ["editor.action.goToImplementation"] },
+        { "before": ["g", "r", "t"], "commands": ["editor.action.goToTypeDefinition"] },
+        { "before": ["g", "r", "n"], "commands": ["editor.action.rename"] },
+        { "before": ["g", "r", "a"], "commands": ["editor.action.quickFix"] },
+        { "before": ["g", "O"], "commands": ["workbench.action.gotoSymbol"] },
+
+        // lsp navigation, opened in a vertical split / floating peek window
+        { "before": ["<leader>", "g", "r", "d"], "commands": ["editor.action.revealDefinitionAside"] },
+        { "before": ["<leader>", "g", "r", "r"], "commands": ["editor.action.referenceSearch.trigger"] },
+        { "before": ["<leader>", "g", "r", "i"], "commands": ["editor.action.peekImplementation"] },
+        { "before": ["<leader>", "g", "r", "t"], "commands": ["editor.action.peekTypeDefinition"] },
+
+        // formatting / code action
+        { "before": ["<leader>", "c", "f"], "commands": ["editor.action.formatDocument"] },
+        { "before": ["<leader>", "c", "a"], "commands": ["editor.action.autoFix"] }
+    ],
+
+    "vim.visualModeKeyBindingsNonRecursive": [
+        { "before": ["<leader>", "c", "f"], "commands": ["editor.action.formatSelection"] },
+        { "before": ["g", "r", "a"], "commands": ["editor.action.quickFix"] },
+        { "before": ["s"], "commands": ["flash-vscode.start"] },
+        { "before": ["S"], "commands": ["flash-vscode.startSelection"] }
+    ],
+    "vim.normalModeKeyBindings": [
+        {
+            "before": [
+                "-"
+            ],
+            "commands": [
+                {
+                    "command": "oil-code.open"
+                }
+            ]
+        },
+        {
+            "before": [
+                "<cr>"
+            ],
+            "commands": [
+                {
+                    "command": "oil-code.select"
+                }
+            ]
+        },
+        {
+            "before": [
+                "<c-l>"
+            ],
+            "commands": [
+                {
+                    "command": "oil-code.refresh"
+                }
+            ]
+        },
+        {
+            "before": [
+                "`"
+            ],
+            "commands": [
+                {
+                    "command": "oil-code.cd"
+                }
+            ]
+        },
+        {
+            "before": [
+                "g",
+                "d"
+            ],
+            "commands": [
+                {
+                    "command": "oil-code.toggleDetails"
+                }
+            ]
+        }
+    ],
+    "git.openRepositoryInParentFolders": "always"
+}

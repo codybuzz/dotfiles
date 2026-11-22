@@ -45,3 +45,16 @@ case "$ID" in
         exit 1
         ;;
 esac
+
+# vscode extensions
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+if command -v code > /dev/null; then
+    # strip comments and blank lines
+    sed -e 's/#.*//' -e 's/[[:space:]]*$//' -e '/^$/d' "$DOTFILES_DIR/vscode/extensions.txt" |
+        while read -r extension; do
+            code --install-extension "$extension" --force
+        done
+else
+    echo "Warning: code not found, skipping vscode extensions" >&2
+fi

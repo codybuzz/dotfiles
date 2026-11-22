@@ -12,6 +12,8 @@ declare -A INSTALL_LOCATIONS=(
     ["vim/.vimrc"]="${HOME}/.vimrc"
     ["tmux/.tmux.conf"]="${HOME}/.tmux.conf"
     ["nvim"]="${HOME}/.config/nvim"
+    ["vscode/settings.json"]="${HOME}/.config/Code/User/settings.json"
+    ["vscode/keybindings.json"]="${HOME}/.config/Code/User/keybindings.json"
 )
 
 # distro-specific install locations

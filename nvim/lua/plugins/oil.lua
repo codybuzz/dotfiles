@@ -5,8 +5,6 @@ return {
         keymaps = {
             ["<C-v>"] = { "actions.select", opts = { vertical = true } },
             ["<C-s>"] = false,
-            ["<C-o>"] = "actions.select",
-            ["<C-b>"] = "actions.parent",
         },
         columns = {
             { "permissions", highlight = "@number" },

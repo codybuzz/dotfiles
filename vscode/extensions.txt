@@ -1,0 +1,5 @@
+vscodevim.vim                               # vim keybinds, surround, commentary
+joshmu.periscope                            # telescope-style fuzzy finder with preview
+haphazarddev.oil-code                       # oil.nvim
+souravahmed.flash-vscode-latest             # flash.nvim
+llvm-vs-code-extensions.vscode-clangd       # clangd
