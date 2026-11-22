@@ -28,3 +28,8 @@ alias gotodo='cd ~/code/dotfiles'
 
 # vim terminal
 set -o vi
+
+# extra settings, kept outside this repo
+if [ -f ~/.bash_local ]; then
+    . ~/.bash_local
+fi
