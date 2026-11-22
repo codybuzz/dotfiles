@@ -8,6 +8,8 @@ set -e
 COMMON_PACKAGES=(
     git
     curl
+    unzip       # nerd fonts
+    fontconfig  # fc-cache for nerd fonts
     vim
     tmux
     neovim
