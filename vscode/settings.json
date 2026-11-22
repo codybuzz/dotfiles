@@ -20,11 +20,7 @@
     "search.seedWithNearestWord": true,
     "workbench.activityBar.location": "hidden",
     "workbench.secondarySideBar.defaultVisibility": "hidden",
-    "workbench.editor.showTabs": "single",
-    // one editor per split, so :q closes the split like a vim window
-    "workbench.editor.limit.enabled": true,
-    "workbench.editor.limit.value": 1,
-    "workbench.editor.limit.perEditorGroup": true,
+    "workbench.editor.showTabs": "multiple",
     "workbench.statusBar.visible": true,        // vim shows the : command line here
     "workbench.layoutControl.enabled": false,
     "workbench.tips.enabled": false,
@@ -94,8 +90,14 @@
         { "before": ["<leader>", "t", "t"], "commands": ["workbench.action.terminal.toggleTerminal"] },
         { "before": ["<leader>", "t", "v"], "commands": ["workbench.action.createTerminalEditorSide"] },
 
+        // floating editor windows, the closest thing to vim tab pages
+        { "before": ["<leader>", "t", "n"], "commands": ["workbench.action.newEmptyEditorWindow"] },
+        { "before": ["<leader>", "t", "m"], "commands": ["workbench.action.moveEditorToNewWindow"] },
+        { "before": ["<leader>", "t", "w"], "commands": ["workbench.action.quickSwitchWindow"] },
+
         // oil / lazy / markview
         { "before": ["<leader>", "o"], "commands": ["oil-code.open"] },
+        { "before": ["-"], "commands": ["oil-code.open"] },
         { "before": ["<leader>", "e"], "commands": ["workbench.files.action.showActiveFileInExplorer"] },
 
         // flash
@@ -137,59 +139,6 @@
         { "before": ["g", "r", "a"], "commands": ["editor.action.quickFix"] },
         { "before": ["s"], "commands": ["flash-vscode.start"] },
         { "before": ["S"], "commands": ["flash-vscode.startSelection"] }
-    ],
-    "vim.normalModeKeyBindings": [
-        {
-            "before": [
-                "-"
-            ],
-            "commands": [
-                {
-                    "command": "oil-code.open"
-                }
-            ]
-        },
-        {
-            "before": [
-                "<cr>"
-            ],
-            "commands": [
-                {
-                    "command": "oil-code.select"
-                }
-            ]
-        },
-        {
-            "before": [
-                "<c-l>"
-            ],
-            "commands": [
-                {
-                    "command": "oil-code.refresh"
-                }
-            ]
-        },
-        {
-            "before": [
-                "`"
-            ],
-            "commands": [
-                {
-                    "command": "oil-code.cd"
-                }
-            ]
-        },
-        {
-            "before": [
-                "g",
-                "d"
-            ],
-            "commands": [
-                {
-                    "command": "oil-code.toggleDetails"
-                }
-            ]
-        }
     ],
     "git.openRepositoryInParentFolders": "always"
 }

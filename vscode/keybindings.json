@@ -25,6 +25,9 @@
 
     // OIL - match the oil.nvim keymaps from nvim/lua/plugins/oil.lua --------
     { "key": "ctrl+v", "command": "oil-code.selectVertical", "when": "editorTextFocus && editorLangId == oil && vim.mode == 'Normal'" },
+    { "key": "enter", "command": "oil-code.select", "when": "editorTextFocus && editorLangId == oil && vim.mode == 'Normal'" },
+    { "key": "ctrl+l", "command": "oil-code.refresh", "when": "editorTextFocus && editorLangId == oil && vim.mode == 'Normal'" },
+    { "key": "`", "command": "oil-code.cd", "when": "editorTextFocus && editorLangId == oil && vim.mode == 'Normal'" },
 
     // FILE EXPLORER - oil-ish vim keys ---------------------------------------
     { "key": "j", "command": "list.focusDown", "when": "explorerViewletFocus && listFocus && !inputFocus" },
